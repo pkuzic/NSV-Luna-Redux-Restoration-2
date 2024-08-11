@@ -10,15 +10,15 @@
 			src << "\red You cannot speak in IC (Muted)."
 			return
 
-	message =  trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message =  trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 	if(stat == 2)
 		return say_dead(message)
 
 	if(iszombie(src))
-		if (message && !(copytext(message, 1, 3) == ":z"))
-			if (copytext(message, 1, 2) == "*" && !stat)
-				return emote(copytext(message, 2))
+		if (message && !(copytext_char(message, 1, 3) == ":z"))
+			if (copytext_char(message, 1, 2) == "*" && !stat)
+				return emote(copytext_char(message, 2))
 			else
 				emote(pick("z_roar","z_shout","z_mutter","z_rawr"))
 				return
@@ -31,8 +31,8 @@
 
 	var/message_mode = parse_message_mode(message, "headset")
 
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
+	if(copytext_char(message,1,2) == "*")
+		return emote(copytext_char(message,2))
 
 	if(name != GetVoice())
 		alt_name = "(as [get_id_name("Unknown")])"
@@ -40,18 +40,18 @@
 	//parse the radio code and consume it
 	if (message_mode)
 		if (message_mode == "headset")
-			message = copytext(message,2)	//it would be really nice if the parse procs could do this for us.
+			message = copytext_char(message,2)	//it would be really nice if the parse procs could do this for us.
 		else
-			message = copytext(message,3)
+			message = copytext_char(message,3)
 
 	//parse the language code and consume it
 	var/datum/language/speaking = parse_language(message)
 	if(speaking)
-		message = copytext(message,3)
+		message = copytext_char(message,3)
 	else if(species.default_language)
 		speaking = all_languages[species.default_language]
 
-	var/ending = copytext(message, length(message))
+	var/ending = copytext_char(message, length(message))
 	if (speaking)
 		// This is broadcast to all mobs with the language,
 		// irrespective of distance or anything else.
@@ -165,19 +165,19 @@
 				temp = replacetext(temp, ";", "")	//general radio
 
 				if(findtext(trim_left(temp), ":", 6, 7))	//dept radio
-					temp = copytext(trim_left(temp), 8)
+					temp = copytext_char(trim_left(temp), 8)
 					virgin = 0
 
 				if(virgin)
-					temp = copytext(trim_left(temp), 6)	//normal speech
+					temp = copytext_char(trim_left(temp), 6)	//normal speech
 					virgin = 0
 
 				while(findtext(trim_left(temp), ":", 1, 2))	//dept radio again (necessary)
-					temp = copytext(trim_left(temp), 3)
+					temp = copytext_char(trim_left(temp), 3)
 
 				if(findtext(temp, "*", 1, 2))	//emotes
 					return
-				temp = copytext(trim_left(temp), 1, rand(5,8))
+				temp = copytext_char(trim_left(temp), 1, rand(5,8))
 
 				var/trimmed = trim_left(temp)
 				if(length(trimmed))
@@ -254,7 +254,7 @@
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
-//				if(mind && mind.changeling && department_radio_keys[copytext(message, 1, 3)] != "changeling")
+//				if(mind && mind.changeling && department_radio_keys[copytext_char(message, 1, 3)] != "changeling")
 				message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
 				verb = pick("whinnies","neighs", "says")
 				handled = 1

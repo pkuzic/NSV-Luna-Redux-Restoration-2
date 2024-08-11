@@ -39,7 +39,7 @@ dmm_suite
 		//Stores the contents of each tile model in the map
 		var/list/grid_models = list()
 		//Length of the tile model code.  e.g. "aaa" is 3 long.
-		var/key_len = length(copytext(input_file, 2 ,findtext(input_file, quote, 2)))
+		var/key_len = length(copytext_char(input_file, 2 ,findtext(input_file, quote, 2)))
 		//The key of the default tile model.  (In SS13 this is: "/turf/space,/area")
 		var/default_key
 
@@ -47,15 +47,15 @@ dmm_suite
 
 		//Iterates through the mapfile to build the model tiles for the map.
 		for(var/line_position = 1; line_position < input_file_len; line_position = findtext(input_file,"\n", line_position) + 1)
-			var/next_line = copytext(input_file, line_position, findtext(input_file,"\n", line_position) - 1)
+			var/next_line = copytext_char(input_file, line_position, findtext(input_file,"\n", line_position) - 1)
 
 			//If the first character in the line is not a quote, the model tiles are all defined.
-			if(copytext(next_line, 1, 2) != quote)
+			if(copytext_char(next_line, 1, 2) != quote)
 				break
 
 			//Copy contents of the model into the grid_models list.
-			var/model_key = copytext(next_line, 2, findtext(input_file, quote, 2))
-			var/model_contents = copytext(next_line, findtext(next_line, "=" ) + 3)
+			var/model_key = copytext_char(next_line, 2, findtext(input_file, quote, 2))
+			var/model_contents = copytext_char(next_line, findtext(next_line, "=" ) + 3)
 			if(!default_key && model_contents == "[world.turf],[world.area]")
 				default_key = model_key
 			grid_models[model_key] = model_contents
@@ -83,14 +83,14 @@ dmm_suite
 			//Here we go!
 			y_coordinate = 0
 			y_depth = 0
-			var/z_level = copytext(input_file, \
+			var/z_level = copytext_char(input_file, \
 						findtext(input_file, quote + "\n", z_position) + 2,\
 						findtext(input_file, "\n" + quote, z_position) + 1)
 
 			//Iterate through each line, increasing the y_coordinate.
 			for(var/grid_position = 1; grid_position != 0; grid_position = findtext(z_level, "\n", grid_position) + 1)
 				//Grab this line of data.
-				var/grid_line = copytext(z_level, grid_position, findtext(z_level, "\n", grid_position))
+				var/grid_line = copytext_char(z_level, grid_position, findtext(z_level, "\n", grid_position))
 
 				//Compute the size of the z-levels y axis.
 				if(!y_depth)
@@ -115,7 +115,7 @@ dmm_suite
 					x_coordinate++
 
 					//Find the model key and load that model.
-					var/model_key = copytext(grid_line, model_position, model_position + key_len)
+					var/model_key = copytext_char(grid_line, model_position, model_position + key_len)
 					//If the key is the default one, skip it and save the computation time.
 					if(model_key == default_key)
 						continue
@@ -149,10 +149,10 @@ dmm_suite
 			//Add the next section of quoted text to the list
 			var/first_quote = findtext(model, quote)
 			var/second_quote = findtext(model, quote, first_quote + 1)
-			var/quoted_chunk = copytext(model, first_quote + 1, second_quote)
+			var/quoted_chunk = copytext_char(model, first_quote + 1, second_quote)
 			text_strings += quoted_chunk
 			//Then remove the quoted section.
-			model = copytext(model, 1, first_quote) + "~[index]" + copytext(model, second_quote + 1)
+			model = copytext_char(model, 1, first_quote) + "~[index]" + copytext_char(model, second_quote + 1)
 
 		var/debug_output = 0
 		//if(x_coordinate == 86 && y_coordinate == 88 && z_coordinate == 7)
@@ -165,7 +165,7 @@ dmm_suite
 		for(var/data_position = 1, next_position || data_position != 1, data_position = next_position + 1)
 			next_position = findtext(model, ",/", data_position)
 
-			var/full_def = copytext(model, data_position, next_position)
+			var/full_def = copytext_char(model, data_position, next_position)
 
 			if(debug_output)
 				debug_file << "		Current Line: [full_def] -- ([data_position] - [next_position])"
@@ -176,11 +176,11 @@ dmm_suite
 
 			//Load the attribute data.
 			var/attribute_position = findtext(full_def,"{")
-			var/atom_def = text2path(copytext(full_def, 1, attribute_position))
+			var/atom_def = text2path(copytext_char(full_def, 1, attribute_position))
 
 			var/list/attributes = list()
 			if(attribute_position)
-				full_def = copytext(full_def, attribute_position + 1)
+				full_def = copytext_char(full_def, attribute_position + 1)
 				if(debug_output)
 					debug_file << "		Atom Def: [atom_def]"
 					debug_file << "		Parameters: [full_def]"
@@ -190,20 +190,20 @@ dmm_suite
 					next_attribute = findtext(full_def, ";", attribute_position)
 
 					//Loop: Identifies each attribute/value pair, and stores it in attributes[].
-					attributes +=  copytext(full_def, attribute_position, next_attribute)
+					attributes +=  copytext_char(full_def, attribute_position, next_attribute)
 
 			//Construct attributes associative list
 			var/list/fields = list()
 			for(var/attribute in attributes)
-				var/trim_left = trim_text(copytext(attribute, 1, findtext(attribute, "=")))
-				var/trim_right = trim_text(copytext(attribute, findtext(attribute, "=") + 1))
+				var/trim_left = trim_text(copytext_char(attribute, 1, findtext(attribute, "=")))
+				var/trim_right = trim_text(copytext_char(attribute, findtext(attribute, "=") + 1))
 
 				if(findtext(trim_right, "list("))
 					trim_right = get_list(trim_right, text_strings)
 
 				else if(findtext(trim_right, "~"))//Check for strings
 					while(findtext(trim_right,"~"))
-						var/reference_index = copytext(trim_right, findtext(trim_right, "~") + 1)
+						var/reference_index = copytext_char(trim_right, findtext(trim_right, "~") + 1)
 						trim_right = text_strings[text2num(reference_index)]
 
 				//Check for numbers
@@ -211,8 +211,8 @@ dmm_suite
 					trim_right = text2num(trim_right)
 
 				//Check for file
-				else if(copytext(trim_right,1,2) == "'")
-					trim_right = file(copytext(trim_right, 2, length(trim_right)))
+				else if(copytext_char(trim_right,1,2) == "'")
+					trim_right = file(copytext_char(trim_right, 2, length(trim_right)))
 
 				fields[trim_left] = trim_right
 				sleep(-1)
@@ -252,10 +252,10 @@ dmm_suite
 
 	proc/trim_text(var/what as text)
 		while(length(what) && findtext(what, " ", 1, 2))
-			what = copytext(what, 2)
+			what = copytext_char(what, 2)
 
 		while(length(what) && findtext(what, " ", length(what)))
-			what = copytext(what, 1, length(what))
+			what = copytext_char(what, 1, length(what))
 
 		return what
 
@@ -263,7 +263,7 @@ dmm_suite
 		//First, trim the data to just the list contents
 		var/list_start = findtext(text, "(") + 1
 		var/list_end = findtext(text, ")", list_start)
-		var/list_contents = copytext(text, list_start, list_end)
+		var/list_contents = copytext_char(text, list_start, list_end)
 
 		//Then, we seperate it into the individual entries
 
@@ -272,7 +272,7 @@ dmm_suite
 
 		for(var/entry_start = 1, entry_end || entry_start != 1, entry_start = entry_end + 1)
 			entry_end = findtext(list_contents, ",", entry_start)
-			entries += copytext(list_contents, entry_start, entry_end)
+			entries += copytext_char(list_contents, entry_start, entry_end)
 
 		//Finally, we assemble the completed list.
 		var/list/final_list = list()
@@ -280,15 +280,15 @@ dmm_suite
 			var/equals_position = findtext(entry, "=")
 
 			if(equals_position)
-				var/trim_left = trim_text(copytext(entry, 1, equals_position))
-				var/trim_right = trim_text(copytext(entry, equals_position + 1))
+				var/trim_left = trim_text(copytext_char(entry, 1, equals_position))
+				var/trim_right = trim_text(copytext_char(entry, equals_position + 1))
 
 				if(findtext(trim_right, "list("))
 					trim_right = get_list(trim_right, text_strings)
 
 				else if(findtext(trim_right, "~"))//Check for strings
 					while(findtext(trim_right,"~"))
-						var/reference_index = copytext(trim_right, findtext(trim_right, "~") + 1)
+						var/reference_index = copytext_char(trim_right, findtext(trim_right, "~") + 1)
 						trim_right = text_strings[text2num(reference_index)]
 
 				//Check for numbers
@@ -296,12 +296,12 @@ dmm_suite
 					trim_right = text2num(trim_right)
 
 				//Check for file
-				else if(copytext(trim_right,1,2) == "'")
-					trim_right = file(copytext(trim_right, 2, length(trim_right)))
+				else if(copytext_char(trim_right,1,2) == "'")
+					trim_right = file(copytext_char(trim_right, 2, length(trim_right)))
 
 				if(findtext(trim_left, "~"))//Check for strings
 					while(findtext(trim_left,"~"))
-						var/reference_index = copytext(trim_left, findtext(trim_left, "~") + 1)
+						var/reference_index = copytext_char(trim_left, findtext(trim_left, "~") + 1)
 						trim_left = text_strings[text2num(reference_index)]
 
 				final_list[trim_left] = trim_right
@@ -309,7 +309,7 @@ dmm_suite
 			else
 				if(findtext(entry, "~"))//Check for strings
 					while(findtext(entry, "~"))
-						var/reference_index = copytext(entry, findtext(entry, "~") + 1)
+						var/reference_index = copytext_char(entry, findtext(entry, "~") + 1)
 						entry = text_strings[text2num(reference_index)]
 
 				//Check for numbers
@@ -317,8 +317,8 @@ dmm_suite
 					entry = text2num(entry)
 
 				//Check for file
-				else if(copytext(entry, 1, 2) == "'")
-					entry = file(copytext(entry, 2, length(entry)))
+				else if(copytext_char(entry, 1, 2) == "'")
+					entry = file(copytext_char(entry, 2, length(entry)))
 
 				final_list += entry
 

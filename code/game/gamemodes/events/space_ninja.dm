@@ -766,7 +766,7 @@ I personally used it with getline() to great effect.
 
 Alternative and inferior method of calculating spideros.
 var/temp = num2text(spideros)
-var/return_to = copytext(temp, 1, (length(temp)))//length has to be to the length of the thing because by default it's length+1
+var/return_to = copytext_char(temp, 1, (length(temp)))//length has to be to the length of the thing because by default it's length+1
 spideros = text2num(return_to)//Maximum length here is 6. Use (return_to, X) to specify larger strings if needed.
 
 //Old way of draining from wire.

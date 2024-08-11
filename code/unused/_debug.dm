@@ -108,7 +108,7 @@ Doing this because FindTurfs() isn't even used
 		for(var/d = 1 to length(tn))
 
 
-			var/char = copytext(tn, len-d+1, len-d+2)
+			var/char = copytext_char(tn, len-d+1, len-d+2)
 
 			if(char == " ")
 				continue

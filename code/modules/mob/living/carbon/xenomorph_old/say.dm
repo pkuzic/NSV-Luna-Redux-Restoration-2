@@ -4,15 +4,15 @@
 		return
 
 	if (length(message) >= 2)
-		if (department_radio_keys[copytext(message, 1, 3)] == "alientalk")
-			message = copytext(message, 3)
-			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		if (department_radio_keys[copytext_char(message, 1, 3)] == "alientalk")
+			message = copytext_char(message, 3)
+			message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 			if (stat == 2)
 				return say_dead(message)
 			else
 				alien_talk(message)
 		else
-			if (copytext(message, 1, 2) != "*" && !stat)
+			if (copytext_char(message, 1, 2) != "*" && !stat)
 				playsound(loc, "hiss", 25, 1, 1)//So aliens can hiss while they hiss yo/N
 			return ..(message)
 	else

@@ -13,7 +13,7 @@
 			return
 	var/cat = "Fiction"
 	var/t = input(user,"Write a book!","Booker","Note: This is all logged abuseing this system will get you banned.") as message
-	var/text = copytext(t,1,0)
+	var/text = copytext_char(t,1,0)
 	var/title = input(user,"Give a title to your book!","Bookia","Title here") as text
 	var/author = input(user,"What's your name?","Namey",user.name) as text
 	var/catname = input(user,"What catagory is this book in?","Fiction") in list("Fiction", "Non-Fiction", "Adult", "Religion", "History", "SelfHelp", "Science", "Cooking", "Medical", "Engineering")

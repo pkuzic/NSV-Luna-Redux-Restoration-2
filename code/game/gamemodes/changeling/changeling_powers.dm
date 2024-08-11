@@ -297,7 +297,7 @@
 		del(T)
 
 	O.loc = C.loc
-	O.name = "monkey ([copytext(md5(C.real_name), 2, 6)])"
+	O.name = "monkey ([copytext_char(md5(C.real_name), 2, 6)])"
 	O.setToxLoss(C.getToxLoss())
 	O.adjustBruteLoss(C.getBruteLoss())
 	O.setOxyLoss(C.getOxyLoss())

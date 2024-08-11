@@ -245,7 +245,7 @@ turf/proc/shift_to_subarea()
 	var/light = min(max(round(lighting_lumcount,1),0),lighting_controller.lighting_states)
 
 	var/find = findtextEx(Area.tag, "sd_L")
-	var/new_tag = copytext(Area.tag, 1, find)
+	var/new_tag = copytext_char(Area.tag, 1, find)
 	new_tag += "sd_L[light]"
 
 	if(Area.tag!=new_tag)	//skip if already in this area

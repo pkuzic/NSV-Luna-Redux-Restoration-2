@@ -91,15 +91,15 @@
 						if (src.modify)
 							if (!( findtext(src.scan.data, "-", 1, null) ))
 								if ((src.modify.data && src.scan.data && length(src.modify.data) >= length(src.scan.data)))
-									src.modify.data = text("[][]", src.scan.data, (length(src.modify.data) > length(src.scan.data) ? copytext(src.modify.data, length(src.scan.data) + 1, length(src.modify.data) + 1) : null))
+									src.modify.data = text("[][]", src.scan.data, (length(src.modify.data) > length(src.scan.data) ? copytext_char(src.modify.data, length(src.scan.data) + 1, length(src.modify.data) + 1) : null))
 								else
 									src.temp = "Disk Failure: Cannot examine data! (Null or wrong format)"
 							else
 								var/d = findtext(src.modify.data, "-", 1, null)
-								var/t = copytext(src.modify.data, d + 1, length(src.modify.data) + 1)
-								d = text2num(copytext(1, d, null))
+								var/t = copytext_char(src.modify.data, d + 1, length(src.modify.data) + 1)
+								d = text2num(copytext_char(1, d, null))
 								if ((d && t && src.modify.data && src.scan.data && length(src.modify.data) >= (length(t) + d - 1) ))
-									src.modify.data = text("[][][]", copytext(src.modify.data, 1, d), t, (length(src.modify.data) > length(t) + d ? copytext(src.modify.data, length(t) + d, length(src.modify.data) + 1) : null))
+									src.modify.data = text("[][][]", copytext_char(src.modify.data, 1, d), t, (length(src.modify.data) > length(t) + d ? copytext_char(src.modify.data, length(t) + d, length(src.modify.data) + 1) : null))
 								else
 									src.temp = "Disk Failure: Cannot examine data! (Null or wrong format)"
 						else
@@ -175,10 +175,10 @@
 							if ((src.modify.data && src.scan.data))
 								var/l1 = length(src.modify.data)
 								var/l2 = max(round(text2num(src.scan.data)), 1)
-								switch(copytext(src.modify.data, 1, 2))
+								switch(copytext_char(src.modify.data, 1, 2))
 									if("a")
 										if (l1 > l2)
-											src.modify.data = copytext(src.modify.data, 1, (l1 - l2) + 1)
+											src.modify.data = copytext_char(src.modify.data, 1, (l1 - l2) + 1)
 										else
 											src.modify.data = ""
 										src.temp = text("Done!<BR>New Data:<BR>[]", src.modify.data)

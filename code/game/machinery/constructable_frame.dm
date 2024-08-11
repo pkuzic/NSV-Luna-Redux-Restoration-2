@@ -634,4 +634,4 @@ to destroy them and players will be able to make replacements.
 		build_path = typepath
 		name = "circuit board ([names_paths[build_path]] Vendor)"
 		user << "<span class='notice'>You set the board to [names_paths[build_path]].</span>"
-		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext("[build_path]", 24)]") = 3)       //Never before has i used a method as horrible as this one, im so sorry
+		req_components = list(text2path("/obj/item/weapon/vending_refill/[copytext_char("[build_path]", 24)]") = 3)       //Never before has i used a method as horrible as this one, im so sorry

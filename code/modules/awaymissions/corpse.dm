@@ -48,9 +48,9 @@
 	M.dna.mutantrace = mutantrace
 
 	if(src.corpsehaircolor)
-		M.r_facial = hex2num(copytext(corpsehaircolor, 2, 4))
-		M.g_facial = hex2num(copytext(corpsehaircolor, 4, 6))
-		M.b_facial = hex2num(copytext(corpsehaircolor, 6, 8))
+		M.r_facial = hex2num(copytext_char(corpsehaircolor, 2, 4))
+		M.g_facial = hex2num(copytext_char(corpsehaircolor, 4, 6))
+		M.b_facial = hex2num(copytext_char(corpsehaircolor, 6, 8))
 		M.r_hair = M.r_facial
 		M.g_hair = M.g_facial
 		M.b_hair = M.b_facial

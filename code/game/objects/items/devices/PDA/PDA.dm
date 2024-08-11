@@ -643,7 +643,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						U << "The PDA softly beeps."
 						ui.close()
 					else
-						t = copytext(sanitize(t), 1, 20)
+						t = copytext_char(sanitize(t), 1, 20)
 						ttone = t
 			else
 				ui.close()

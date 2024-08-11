@@ -24,9 +24,9 @@
 		var/hue = re.color
 		if(length(hue) != 7)
 			return 0
-		redcolor[i]=hex2num(copytext(hue,2,4))
-		greencolor[i]=hex2num(copytext(hue,4,6))
-		bluecolor[i]=hex2num(copytext(hue,6,8))
+		redcolor[i]=hex2num(copytext_char(hue,2,4))
+		greencolor[i]=hex2num(copytext_char(hue,4,6))
+		bluecolor[i]=hex2num(copytext_char(hue,6,8))
 
 	//mix all the colors
 	var/red = mixOneColor(weight,redcolor)

@@ -719,7 +719,7 @@
 		if(bodytemperature > species.heat_level_1)
 			//Body temperature is too hot.
 			fire_alert = max(fire_alert, 1)
-			if(status_flags & GODMODE)	
+			if(status_flags & GODMODE)
 				return 1 //godmode
 			if(clamp(bodytemperature, species.heat_level_1, species.heat_level_2))
 				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
@@ -737,7 +737,7 @@
 
 		else if(bodytemperature < species.cold_level_1)
 			fire_alert = max(fire_alert, 1)
-			if(status_flags & GODMODE)	
+			if(status_flags & GODMODE)
 				return 1 //godmode
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 				if(clamp(bodytemperature, species.cold_level_2, species.cold_level_1))
@@ -1249,7 +1249,7 @@
 		if(!client)	return 0
 
 		for(var/image/hud in client.images)
-			if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
+			if(copytext_char(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
 				client.images.Remove(hud)
 
 		client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask, global_hud.g_dither, global_hud.r_dither, global_hud.gray_dither, global_hud.lp_dither)

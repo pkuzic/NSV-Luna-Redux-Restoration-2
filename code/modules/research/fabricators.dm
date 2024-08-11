@@ -202,8 +202,8 @@
 			src.visible_message("<font color='blue'>The [src.name] beeps, \"Not enough materials to complete item.\"</font>")
 			stopped=1
 			return 0
-		if(copytext(M,1,2) == "$")
-			var/matID=copytext(M,2)
+		if(copytext_char(M,1,2) == "$")
+			var/matID=copytext_char(M,2)
 			var/datum/material/material=materials[matID]
 			material.stored = max(0, (material.stored-part.materials[M]))
 			materials[matID]=material
@@ -439,13 +439,13 @@
 /obj/machinery/r_n_d/fabricator/proc/getTopicDesign(var/stringinput = "")
 	var/final_digit = 0
 	for(var/i = 1, i <= length(stringinput), i++)
-		if(!text2num(copytext(stringinput, i)))
-			//message_admins("Breaking on [copytext(stringinput, i)] and [i]")
+		if(!text2num(copytext_char(stringinput, i)))
+			//message_admins("Breaking on [copytext_char(stringinput, i)] and [i]")
 			final_digit = i
 			break
-	var/part_list = part_sets[copytext(stringinput, final_digit)]
-	var/index = text2num(copytext(stringinput, 1, final_digit))
-	//message_admins("From [stringinput] we have [index] and [copytext(stringinput, final_digit)]")
+	var/part_list = part_sets[copytext_char(stringinput, final_digit)]
+	var/index = text2num(copytext_char(stringinput, 1, final_digit))
+	//message_admins("From [stringinput] we have [index] and [copytext_char(stringinput, final_digit)]")
 	return part_list[index]
 
 /obj/machinery/r_n_d/fabricator/Topic(href, href_list)

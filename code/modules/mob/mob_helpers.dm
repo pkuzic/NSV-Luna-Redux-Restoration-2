@@ -237,8 +237,8 @@ proc/hasorgans(A)
 	var/p = null
 	p = 1
 	while(p <= n)
-		if ((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext(te, p, p + 1))
+		if ((copytext_char(te, p, p + 1) == " " || prob(pr)))
+			t = text("[][]", t, copytext_char(te, p, p + 1))
 		else
 			t = text("[]*", t)
 		p++
@@ -249,7 +249,7 @@ proc/slur(phrase)
 	phrase = html_decode(phrase)
 	var/index = findtext(phrase, "&#255;")
 	while(index)
-		phrase = copytext(phrase, 1, index) + "ÿ" + copytext(phrase, index+1)
+		phrase = copytext_char(phrase, 1, index) + "ÿ" + copytext_char(phrase, index+1)
 		index = findtext(phrase, "&#255;")
 	var
 		leng=length(phrase)
@@ -258,7 +258,7 @@ proc/slur(phrase)
 		newletter=""
 
 	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(prob(33))
 			if(lowerrustext(newletter)=="î")	newletter="ó"
 			if(lowerrustext(newletter)=="û")	newletter="i"
@@ -284,7 +284,7 @@ proc/slur(phrase)
 		counter-=1
 	index = findtext(newphrase, "ÿ")
 	while(index)
-		newphrase = copytext(newphrase, 1, index) + "&#255;" + copytext(newphrase, index+1)
+		newphrase = copytext_char(newphrase, 1, index) + "&#255;" + copytext_char(newphrase, index+1)
 		index = findtext(newphrase, "ÿ")
 	return newphrase
 
@@ -306,8 +306,8 @@ proc/slur(phrase)
 		var/index = split_phrase.Find(word) //Find the word in the split phrase so we can replace it.
 
 		//Search for dipthongs (two letters that make one sound.)
-		var/first_sound = copytext(word,1,7)
-		var/first_letter = copytext(word,1,2)
+		var/first_sound = copytext_char(word,1,7)
+		var/first_letter = copytext_char(word,1,2)
 		if(lowerrustext(first_sound) in list("&#255;"))
 			first_letter = first_sound
 
@@ -331,7 +331,7 @@ proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 fo
 	var/returntext = ""
 	for(var/i = 1, i <= length(t), i++)
 
-		var/letter = copytext(t, i, i+1)
+		var/letter = copytext_char(t, i, i+1)
 		if(prob(50))
 			if(p >= 70)
 				letter = ""
@@ -358,9 +358,9 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 		var/n_letter
 		var/n_mod = rand(1,4)
 		if(p+n_mod>n+1)
-			n_letter = copytext(te, p, n+1)
+			n_letter = copytext_char(te, p, n+1)
 		else
-			n_letter = copytext(te, p, p+n_mod)
+			n_letter = copytext_char(te, p, p+n_mod)
 		if (prob(50))
 			if (prob(30))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]")
@@ -370,7 +370,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			n_letter = text("[n_letter]")
 		t = text("[t][n_letter]")
 		p=p+n_mod
-	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+	return copytext_char(sanitize(t),1,MAX_MESSAGE_LEN)
 
 
 /proc/shake_camera(mob/M, duration, strength=1)

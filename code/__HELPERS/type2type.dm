@@ -19,7 +19,7 @@
 	var/i = null
 	i = length(hex)
 	while(i > 0)
-		var/char = copytext(hex, i, i + 1)
+		var/char = copytext_char(hex, i, i + 1)
 		switch(char)
 			if("0")
 				//Apparently, switch works with empty statements, yay! If that doesn't work, blame me, though. -- Urist
@@ -203,7 +203,7 @@ proc/tg_list2text(list/list, glue=",")
 	var/found
 	do
 		found = findtext(text, delimiter, last_found, 0)
-		. += copytext(text, last_found, found)
+		. += copytext_char(text, last_found, found)
 		last_found = found + delim_len
 	while(found)
 
@@ -221,7 +221,7 @@ proc/tg_list2text(list/list, glue=",")
 		loops++
 
 		findPosition = findtext(text, separator, searchPosition, 0)
-		var/buggyText = copytext(text, searchPosition, findPosition)
+		var/buggyText = copytext_char(text, searchPosition, findPosition)
 		if(!withinList || (buggyText in withinList)) textList += "[buggyText]"
 		if(!findPosition) return textList
 		searchPosition = findPosition + separatorlength
@@ -239,7 +239,7 @@ proc/tg_list2text(list/list, glue=",")
 	var/found
 	do
 		found = findtextEx(text, delimiter, last_found, 0)
-		. += copytext(text, last_found, found)
+		. += copytext_char(text, last_found, found)
 		last_found = found + delim_len
 	while(found)
 

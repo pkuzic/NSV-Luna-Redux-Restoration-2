@@ -107,7 +107,7 @@
 
 /mob/living/simple_animal/borer/say(var/message)
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	message = capitalize(message)
 
 	if(!message)
@@ -126,10 +126,10 @@
 		if (src.client.handle_spam_prevention(message,MUTE_IC))
 			return
 
-	if (copytext(message, 1, 2) == "*")
-		return emote(copytext(message, 2))
+	if (copytext_char(message, 1, 2) == "*")
+		return emote(copytext_char(message, 2))
 
-	if (copytext(message, 1, 2) == ";") //Brain borer hivemind.
+	if (copytext_char(message, 1, 2) == ";") //Brain borer hivemind.
 		return borer_speak(message)
 
 	if(!host)
@@ -167,7 +167,7 @@
 
 	for(var/mob/M in mob_list)
 		if(M.mind && (istype(M, /mob/living/simple_animal/borer) || istype(M, /mob/dead/observer)))
-			M << "<i>Cortical link, <b>[truename]:</b> [copytext(message, 2)]</i>"
+			M << "<i>Cortical link, <b>[truename]:</b> [copytext_char(message, 2)]</i>"
 
 /mob/living/simple_animal/borer/verb/dominate_victim()
 	set category = "Alien"

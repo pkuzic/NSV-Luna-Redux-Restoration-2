@@ -433,21 +433,21 @@ datum/preferences
 		if(length(med_record) <= 40)
 			HTML += "[med_record]"
 		else
-			HTML += "[copytext(med_record, 1, 37)]..."
+			HTML += "[copytext_char(med_record, 1, 37)]..."
 
 		HTML += "<br><br><a href=\"byond://?src=\ref[user];preference=records;task=gen_record\">Employment Records</a><br>"
 
 		if(length(gen_record) <= 40)
 			HTML += "[gen_record]"
 		else
-			HTML += "[copytext(gen_record, 1, 37)]..."
+			HTML += "[copytext_char(gen_record, 1, 37)]..."
 
 		HTML += "<br><br><a href=\"byond://?src=\ref[user];preference=records;task=sec_record\">Security Records</a><br>"
 
 		if(length(sec_record) <= 40)
 			HTML += "[sec_record]<br>"
 		else
-			HTML += "[copytext(sec_record, 1, 37)]...<br>"
+			HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
 		HTML += "<br>"
 		HTML += "<a href=\"byond://?src=\ref[user];preference=records;records=-1\">\[Done\]</a>"
@@ -669,13 +669,13 @@ datum/preferences
 				if("general")
 					var/msg = sanitize_uni(input(usr,"Give a general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences.","Flavor Text",html_decode(flavor_texts[href_list["task"]])) as message)
 					if(msg != null)
-						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+						msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 						msg = html_encode(msg)
 					flavor_texts[href_list["task"]] = msg
 				else
 					var/msg = sanitize_uni(input(usr,"Set the flavor text for your [href_list["task"]].","Flavor Text",html_decode(flavor_texts[href_list["task"]])) as message)
 					if(msg != null)
-						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+						msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 						msg = html_encode(msg)
 					flavor_texts[href_list["task"]] = msg
 			SetFlavorText(user)
@@ -691,7 +691,7 @@ datum/preferences
 				var/medmsg = input(usr,"Set your medical notes here.","Medical Records",html_decode(med_record)) as message
 
 				if(medmsg != null)
-					medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
+					medmsg = copytext_char(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
 					medmsg = html_encode(medmsg)
 
 					med_record = medmsg
@@ -701,7 +701,7 @@ datum/preferences
 				var/secmsg = input(usr,"Set your security notes here.","Security Records",html_decode(sec_record)) as message
 
 				if(secmsg != null)
-					secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
+					secmsg = copytext_char(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
 					secmsg = html_encode(secmsg)
 
 					sec_record = secmsg
@@ -710,7 +710,7 @@ datum/preferences
 				var/genmsg = input(usr,"Set your employment notes here.","Employment Records",html_decode(gen_record)) as message
 
 				if(genmsg != null)
-					genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
+					genmsg = copytext_char(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
 					genmsg = html_encode(genmsg)
 
 					gen_record = genmsg
@@ -790,9 +790,9 @@ datum/preferences
 						if(species == "Human" || species == "Unathi")
 							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
 							if(new_hair)
-								r_hair = hex2num(copytext(new_hair, 2, 4))
-								g_hair = hex2num(copytext(new_hair, 4, 6))
-								b_hair = hex2num(copytext(new_hair, 6, 8))
+								r_hair = hex2num(copytext_char(new_hair, 2, 4))
+								g_hair = hex2num(copytext_char(new_hair, 4, 6))
+								b_hair = hex2num(copytext_char(new_hair, 6, 8))
 
 					if("h_style")
 						var/list/valid_hairstyles = list()
@@ -810,9 +810,9 @@ datum/preferences
 					if("facial")
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference") as color|null
 						if(new_facial)
-							r_facial = hex2num(copytext(new_facial, 2, 4))
-							g_facial = hex2num(copytext(new_facial, 4, 6))
-							b_facial = hex2num(copytext(new_facial, 6, 8))
+							r_facial = hex2num(copytext_char(new_facial, 2, 4))
+							g_facial = hex2num(copytext_char(new_facial, 4, 6))
+							b_facial = hex2num(copytext_char(new_facial, 6, 8))
 
 					if("f_style")
 						var/list/valid_facialhairstyles = list()
@@ -846,9 +846,9 @@ datum/preferences
 					if("eyes")
 						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null
 						if(new_eyes)
-							r_eyes = hex2num(copytext(new_eyes, 2, 4))
-							g_eyes = hex2num(copytext(new_eyes, 4, 6))
-							b_eyes = hex2num(copytext(new_eyes, 6, 8))
+							r_eyes = hex2num(copytext_char(new_eyes, 2, 4))
+							g_eyes = hex2num(copytext_char(new_eyes, 4, 6))
+							b_eyes = hex2num(copytext_char(new_eyes, 6, 8))
 
 					if("s_tone")
 						if(species != "Human")

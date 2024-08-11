@@ -206,7 +206,7 @@ client
 			var/middle_point = length(formatted_type) / 2
 			var/splitpoint = findtext(formatted_type,"/",middle_point)
 			if(splitpoint)
-				formatted_type = "[copytext(formatted_type,1,splitpoint)]<br>[copytext(formatted_type,splitpoint)]"
+				formatted_type = "[copytext_char(formatted_type,1,splitpoint)]<br>[copytext_char(formatted_type,splitpoint)]"
 			else
 				formatted_type = "Type too long" //No suitable splitpoint (/) found.
 
@@ -428,7 +428,7 @@ client
 			usr << "This can only be used on instances of type /mob"
 			return
 
-		var/new_name = copytext(sanitize(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null),1,MAX_NAME_LEN)
+		var/new_name = copytext_char(sanitize(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null),1,MAX_NAME_LEN)
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -899,7 +899,7 @@ client
 				return
 
 			if(organ_slot != "default")
-				organ_slot = sanitize(copytext(organ_slot,1,MAX_MESSAGE_LEN))
+				organ_slot = sanitize(copytext_char(organ_slot,1,MAX_MESSAGE_LEN))
 			else
 				if(I.removed_type)
 					var/obj/item/organ/O = new I.removed_type()

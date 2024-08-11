@@ -7,7 +7,7 @@
 			src << "\red You cannot speak in IC (Muted)."
 			return
 
-	message =  trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	message =  trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
 	if (!message)
 		return
@@ -17,13 +17,13 @@
 	if(stat == 2)
 		return say_dead(message)
 
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
+	if(copytext_char(message,1,2) == "*")
+		return emote(copytext_char(message,2))
 
 	var/datum/language/speaking = null
 
 	if(length(message) >= 2)
-		var/channel_prefix = copytext(message, 1 ,3)
+		var/channel_prefix = copytext_char(message, 1 ,3)
 		if(languages.len)
 			for(var/datum/language/L in languages)
 				if(lowertext(channel_prefix) == ":[L.key]")
@@ -32,7 +32,7 @@
 					break
 
 	if(speaking)
-		message = trim(copytext(message,3))
+		message = trim(copytext_char(message,3))
 
 	message = capitalize(trim_left(message))
 

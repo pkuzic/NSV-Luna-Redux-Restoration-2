@@ -285,7 +285,7 @@ var/list/slot_equipment_priority = list( \
 	set name = "Add Note"
 	set category = "IC"
 
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize(msg)
 
 	if(mind)
@@ -294,7 +294,7 @@ var/list/slot_equipment_priority = list( \
 		src << "The game appears to have misplaced your mind datum, so we can't show you your notes."
 
 /mob/proc/store_memory(msg as message, popup, sane = 1)
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if (sane)
 		msg = sanitize(msg)
@@ -314,7 +314,7 @@ var/list/slot_equipment_priority = list( \
 	var/msg = input(usr,"Set the flavor text in your 'examine' verb. Can also be used for OOC notes about your character.","Flavor Text",rhtml_decode_paper(flavor_text)) as message|null
 
 	if(msg != null)
-//		msg = sanitize_uni(copytext(msg, 1, MAX_MESSAGE_LEN))
+//		msg = sanitize_uni(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 		msg = rhtml_encode_paper(msg)
 
 		flavor_text = msg
@@ -330,7 +330,7 @@ var/list/slot_equipment_priority = list( \
 		if(length(msg) <= 40)
 			return "\blue [msg]"
 		else
-			return "\blue [copytext(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
+			return "\blue [copytext_char(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
 	else
 		return 0
 

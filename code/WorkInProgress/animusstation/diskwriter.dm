@@ -51,8 +51,8 @@
 					var/datum/turntable_soundtrack/T = new()
 					var/obj/item/weapon/disk/music/disk = new()
 					T.path = S
-					T.f_name = copytext(N, 1, 2)
-					T.name = copytext(N, 2)
+					T.f_name = copytext_char(N, 1, 2)
+					T.name = copytext_char(N, 2)
 					disk.data = T
 					disk.name = "disk ([N])"
 					disk.loc = src.loc
